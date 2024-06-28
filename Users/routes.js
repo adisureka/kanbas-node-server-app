@@ -48,12 +48,14 @@ export default function UserRoutes(app) {
   //const updateUser = async (req, res) => { 
   const updateUser = async(req, res) => {
           const {userId} = req.params;
+          console.log("Update user by id= " + JSON.stringify(req.params))
           const status = await dao.updateUser(userId, req.body)
           res.json(status)
       }
   
   const signup = async (req, res) => { 
     const user = await dao.findUserByUsername(req.body.username)
+    console.log("in signup user: " + JSON.stringify(user))
     if(user) {
       
       res.status(400).json({message: "Username already taken"})
@@ -96,4 +98,6 @@ export default function UserRoutes(app) {
   app.post("/api/users/signin", signin)
   app.post("/api/users/signout", signout)
   app.post("/api/users/profile", profile)
+  //post is create new data
+
 }
